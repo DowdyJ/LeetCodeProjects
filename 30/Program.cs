@@ -101,7 +101,7 @@ class Program
         foreach (var ct in comboTokens) {
             Dictionary<string, bool> keywordOccuranceRecord = new(keywordOccuranceRecordTemplate);
 
-            for (int i = 0; i < ct.text / words[0].Length; ++i) {
+            for (int i = 0; i < ct.text.Length / words[0].Length; ++i) {
                 keywordOccuranceRecord[ct.text.Substring(curIndex, words[0].Length)] = true;
                 curIndex += words[0].Length;
             }
@@ -192,18 +192,19 @@ class Program
 
     private List<string> TokenizeInputString(string input, string[] keywords) 
     {
-        List<string> tokens = new();
+        throw new NotImplementedException();
+        // List<string> tokens = new();
 
-        int wordSize = keywords[0].Length;
+        // int wordSize = keywords[0].Length;
 
-        string tempToken = "";
+        // string tempToken = "";
 
-        for (char c in input) 
-        {
-            if (tempToken < word)
-        }
+        // for (char c in input) 
+        // {
+        //     if (tempToken < word)
+        // }
 
-        return tokens;
+        // return tokens;
     }
 }
 
