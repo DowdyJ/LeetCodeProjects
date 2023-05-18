@@ -1,0 +1,15 @@
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/bin/Debug/net6.0/30
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/bin/Debug/net6.0/30.deps.json
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/bin/Debug/net6.0/30.runtimeconfig.json
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/bin/Debug/net6.0/30.dll
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/bin/Debug/net6.0/30.pdb
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/30.csproj.AssemblyReference.cache
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/30.GeneratedMSBuildEditorConfig.editorconfig
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/30.AssemblyInfoInputs.cache
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/30.AssemblyInfo.cs
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/30.csproj.CoreCompileInputs.cache
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/30.dll
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/refint/30.dll
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/30.pdb
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/30.genruntimeconfig.cache
+/home/dowdyj/Documents/Programming/leetcodeProjects/LeetCodeProjects/30/obj/Debug/net6.0/ref/30.dll
