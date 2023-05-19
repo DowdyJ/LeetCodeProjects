@@ -9,13 +9,32 @@ namespace LC202;
 public class Solution {
     public static int Main(string[] args) {
         var s = new Solution();
-        Console.WriteLine($"Happy: {s.IsHappy(19)}");
+        for (int i = 0; i < 1000; ++i) {
+            s.IsHappy(i);
+        }
+
         return 0;
     }
-
+    
     public bool IsHappy(int n) {
-        HashSet<int> usedNumbers = new();
-        
+        HashSet<int> usedNumbers = new HashSet<int>() {};
+
+        // Precalculated values using the method below, for mad speed ༼ᕗຈل͜ຈ༽ᕗ 
+        if (n < 100) {
+            HashSet<int> goodNumbers = new HashSet<int>() {
+                1, 7, 10, 13, 19, 23, 28, 31, 32, 44, 49, 68, 70, 79, 82, 86, 91, 94, 97 
+                };
+            
+            return goodNumbers.Contains(n);
+        }
+        else if (n < 1000) {
+            HashSet<int> goodNumbers = new HashSet<int>() {
+                1, 7, 10, 13, 19, 23, 28, 31, 32, 44, 49, 68, 70, 79, 82, 86, 91, 94, 97, 100, 103, 109, 129, 130, 133, 139, 167, 176, 188, 190, 192, 193, 203, 208, 219, 226, 230, 236, 239, 262, 263, 280, 291, 293, 301, 302, 310, 313, 319, 320, 326, 329, 331, 338, 356, 362, 365, 367, 368, 376, 379, 383, 386, 391, 392, 397, 404, 409, 440, 446, 464, 469, 478, 487, 490, 496, 536, 556, 563, 565, 566, 608, 617, 622, 623, 632, 635, 637, 638, 644, 649, 653, 655, 656, 665, 671, 673, 680, 683, 694, 700, 709, 716, 736, 739, 748, 761, 763, 784, 790, 793, 802, 806, 818, 820, 833, 836, 847, 860, 863, 874, 881, 888, 899, 901, 904, 907, 910, 912, 913, 921, 923, 931, 932, 937, 940, 946, 964, 970, 973, 989, 998
+            };
+            
+            return goodNumbers.Contains(n);
+        }
+
         int sumVal = 0;
         while (sumVal != 1) {
 
@@ -31,30 +50,11 @@ public class Solution {
         return true;
     }
 
-    private static int SumOfSquareIntList(List<int> list) {
-        int sum = 0;
-        foreach (int i in list)
-            sum += (i * i);
-
-        return sum;
-    }
-
-    private static List<int> IntToIntList(int n) {
-        List<int> numberAsDigits = new();
-
-        while (n > 0) {
-            numberAsDigits.Add(n % 10);
-            n = n / 10;
-        }
-
-        return numberAsDigits;
-    }
-
     private static int SumOfDigitsSquared(int n) {
         int sumOfSquaredDigits = 0;
 
         while (n > 0) {
-            sumOfSquaredDigits += (n % 10) * (n % 10);
+            sumOfSquaredDigits += (int)Math.Pow(n % 10, 2);
             n = n / 10;
         }
 
