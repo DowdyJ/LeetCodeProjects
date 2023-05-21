@@ -28,17 +28,16 @@ public class Solution {
             }
         return 0;
     }
-    
-    // [["a","b"],["b","c"]], values = [2.0,3.0], queries = [["a","c"],["b","a"],["a","e"],["a","a"],["x","x"]]
-    // Output: [6.00000,0.50000,-1.00000,1.00000,-1.00000]
 
     public double[] CalcEquation(List<List<string>> equations, double[] values, List<List<string>> queries) {
         Dictionary<string, List<EquationData>> nodeDataDictionary = MakeGraphDictionary(equations, values, queries);
 
         List<double> queryResults = new List<double>(queries.Count);
+        HashSet<string> seenNodes = new HashSet<string>();
 
         foreach (var query in queries) {
-            double resultValue = ResolveQueryDFS(query[0], query[1], 1, nodeDataDictionary, new HashSet<string>());
+            seenNodes.Clear();
+            double resultValue = ResolveQueryDFS(query[0], query[1], 1, nodeDataDictionary, seenNodes);
             queryResults.Add(resultValue);
         }
 
