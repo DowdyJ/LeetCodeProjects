@@ -6,12 +6,15 @@ package dev.sugaroflead;
  */
 public class App {
     public static void main(String[] args) {
-        System.out.println("Hello World!");
+        long start = System.nanoTime();
+        App a = new App();
+        a.myAtoi(" ++47");
+        long end = System.nanoTime();
+        System.out.println("TIME:" + (end - start));
     }
 
     public int myAtoi(String s) {
         s = s.trim();
-        int placeValue = 1;
         int sign = 1;
         int convertedValue = 0;
 
@@ -20,9 +23,9 @@ public class App {
 
         if (s.charAt(0) == '-') {
             sign = -1;
-            s = s.replaceFirst("-", "");
+            s = s.substring(1);
         } else if (s.charAt(0) == '+') {
-            s = s.replaceFirst("\\+", "");
+            s = s.substring(1);
         } else if (s.charAt(0) < 48 || s.charAt(0) > 57) {
             return 0;
         }
@@ -35,7 +38,7 @@ public class App {
                     break;
 
                 convertedValue = Math.multiplyExact(convertedValue, 10);
-                convertedValue = Math.addExact(convertedValue, CharToInt(currentChar));
+                convertedValue = Math.addExact(convertedValue, currentChar - 48);
             }
         } catch (ArithmeticException e) {
             return sign == 1 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
@@ -43,9 +46,4 @@ public class App {
 
         return sign * convertedValue;
     }
-
-    private static final int CharToInt(char c) {
-        return c - 48;
-    }
-
 }
