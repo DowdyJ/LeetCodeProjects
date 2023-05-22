@@ -1,0 +1,8 @@
+-------------------------------------------------------------------------------
+Test set: dev.sugaroflead.AppTest
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.109 s <<< FAILURE! - in dev.sugaroflead.AppTest
+testCase4(dev.sugaroflead.AppTest)  Time elapsed: 0.011 s  <<< FAILURE!
+java.lang.AssertionError: expected:<1> but was:<10>
+	at dev.sugaroflead.AppTest.testCase4(AppTest.java:57)
+
