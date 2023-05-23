@@ -9,8 +9,9 @@ import org.junit.Test;
  */
 public class AppTest 
 {
-    //Input: nums = [1,2,0]
-    //Output: 3
+
+    // Input: nums = [1,2,0]
+    // Output: 3
     @Test
     public void testCase1()
     {
