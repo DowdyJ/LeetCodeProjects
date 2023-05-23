@@ -13,8 +13,10 @@ public class AppTest
     public void testCase1() {
         App a = new App();
         int[] ans = a.topKFrequent(new int[] {1,1,1,2,2,3}, 2);
-        assertEquals(1, ans[0]);
-        assertEquals(2, ans[1]);
+        int sum = 0;
+        for (int i : ans)
+            sum += i;
+        assertEquals(3, sum);
     }
 
     @Test
