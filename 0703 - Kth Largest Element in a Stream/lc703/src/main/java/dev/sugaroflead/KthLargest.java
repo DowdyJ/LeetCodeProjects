@@ -3,6 +3,8 @@ package dev.sugaroflead;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class KthLargest {
     int inspectionIndex = -1;
@@ -16,20 +18,25 @@ public class KthLargest {
             return 1;
         }
     };
-    ArrayList<Integer> values = new ArrayList<>();
+
+    Queue<Integer> values = new PriorityQueue<>(orderAscending);
 
     public KthLargest(int k, int[] nums) {
         this.inspectionIndex = k;
         for (int num : nums) {
-            values.add(num);
+            add(num);
         }
-
-        Collections.sort(values, orderAscending);
     }
     
     public int add(int val) {
-        values.add(val);
-        Collections.sort(values, orderAscending);
-        return values.get(values.size() - inspectionIndex);
+        if (values.size() == inspectionIndex && val < values.peek())
+            return values.peek();
+
+        values.offer(val);
+
+        if (values.size() > inspectionIndex)
+            values.poll();
+
+        return values.peek();
     }
 }
