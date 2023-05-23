@@ -5,6 +5,8 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 import java.util.Map.Entry;
 
 
@@ -24,36 +26,29 @@ public class App
             valueToOccuranceFrequency.put(num, valueToOccuranceFrequency.getOrDefault(num, 0) + 1);
         }
 
-        ArrayList<Integer> values = new ArrayList<>(valueToOccuranceFrequency.values());
-        
-        Collections.sort(values, new Comparator<Integer>() {
-            public int compare(Integer i1, Integer i2) {
-                return i1.compareTo(i2); // sort descending;
-            } 
+        int[] topKeys = new int[k];
+        int numberOfSelectedKeys = 0;
+
+        Queue<Map.Entry<Integer, Integer>> sortedEntries = new PriorityQueue<>(new Comparator<Map.Entry<Integer, Integer>>() {
+            public int compare(Map.Entry<Integer, Integer> e1, Map.Entry<Integer, Integer> e2) {
+                if (e1.getValue() == e2.getValue())
+                    return 0;
+                else if (e1.getValue() > e2.getValue())
+                    return -1;
+                
+                return 1;
+            }
         });
 
-        ArrayList<Integer> topKeys = new ArrayList<>();
-        int numberOfSelectedKeys = 0;
-        while (numberOfSelectedKeys < k) {
-            int currentHighestValue = -1; 
-
-            do {
-                currentHighestValue = values.remove(values.size() - 1);
-            } while (values.size() != 0 && currentHighestValue == values.get(values.size() - 1));
-
-            for (Map.Entry<Integer, Integer> entry : valueToOccuranceFrequency.entrySet()) {
-                if (entry.getValue() == currentHighestValue) {
-                    topKeys.add(entry.getKey());
-                    numberOfSelectedKeys++;
-
-                    if (numberOfSelectedKeys >= k)
-                        break;
-                }
-            }
+        for (Map.Entry<Integer, Integer> entry : valueToOccuranceFrequency.entrySet()) {
+            sortedEntries.add(entry);
         }
 
-        int[] p = topKeys.stream().mapToInt(i -> i).toArray();
+        while (numberOfSelectedKeys < k) {
+            topKeys[numberOfSelectedKeys] = sortedEntries.poll().getKey();
+            numberOfSelectedKeys++;
+        }
 
-        return p;
+        return topKeys;
     }
 }
