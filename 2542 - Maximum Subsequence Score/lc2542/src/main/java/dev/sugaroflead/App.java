@@ -34,22 +34,26 @@ public class App
 
         int currentInspectionIndex = nums1.length - k;
 
+        Queue<Integer> topAdditiveNumbers = new PriorityQueue<>(k);
+        
+        // Initialize the heap with first full set of values
+        for (int i = currentInspectionIndex; i < nums1.length; ++i) {
+            topAdditiveNumbers.offer(nums1[i]);
+        }
+
         while (currentInspectionIndex >= 0) {
-            Queue<Integer> topAdditiveNumbers = new PriorityQueue<>(k);
             int currentMultiplier = nums2[currentInspectionIndex];
 
-            for (int i = currentInspectionIndex; i < nums1.length; ++i) {
-                topAdditiveNumbers.offer(nums1[i]);
-                if (topAdditiveNumbers.size() > k)
-                    topAdditiveNumbers.poll();
-            }
+            topAdditiveNumbers.offer(nums1[currentInspectionIndex]);
+            topAdditiveNumbers.poll();
 
             long sum = 0;
-            while (topAdditiveNumbers.peek() != null) {
-                sum += topAdditiveNumbers.poll();
-            }
+
+            for (int entry : topAdditiveNumbers)
+                sum += entry;
 
             long product = sum * currentMultiplier;
+            
             if (product > maxScore)
                 maxScore = product;
 
