@@ -1,17 +1,22 @@
 package dev.sugaroflead;
 
 import java.util.Arrays;
+import java.util.Map;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.TreeMap;
 
 public class App 
 {
     public static void main( String[] args )
     {
         System.out.println( "Hello World!" );
-
+        long startTime = System.nanoTime();
         App a = new App();
-        long max = a.maxScore(new int [] {2,1,14,12}, new int[] {11,7,13,6}, 3);
+        long max = a.maxScore(new int [] {2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12,2,1,14,12}, new int[] {1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1}, 3);
+        long endTime = System.nanoTime();
+
+        System.out.println("TOTAL: " + (endTime - startTime));
     }
 
     public long maxScore(int[] nums1, int[] nums2, int k) {
@@ -31,6 +36,9 @@ public class App
         }
 
 
+        // if (isPoorMatchForQuickSort(nums2))
+        //     altSort(nums2, nums1);
+        // else
         quickSort(nums2, nums1, 0, nums1.length - 1);
 
         int currentInspectionIndex = nums1.length - k;
@@ -55,7 +63,6 @@ public class App
                 if (topAdditiveNumbers.size() > k)
                     previousSmallestNumber = topAdditiveNumbers.poll();
                 
-                //sum = 0;
                 if (sum == 0) {
                     for (int entry : topAdditiveNumbers)
                         sum += entry;
@@ -78,43 +85,37 @@ public class App
 
     public void quickSort(int[] arrayToSort, int[] collateralToSort, int low, int high) {
         if (low < high) {
-            int partitionIndex = partition(arrayToSort, collateralToSort, low, high);
-
-            quickSort(arrayToSort, collateralToSort, low, partitionIndex -1);
-            quickSort(arrayToSort, collateralToSort, partitionIndex + 1, high);
+            int[] partitionIndices = partition(arrayToSort, collateralToSort, low, high);
+            quickSort(arrayToSort, collateralToSort, low, partitionIndices[0] - 1);
+            quickSort(arrayToSort, collateralToSort, partitionIndices[1] + 1, high);
         }
     }
-
-    private int partition(int[] arrayToSort, int[] collateralToSort, int low, int high) {
+    
+    private int[] partition(int[] arrayToSort, int[] collateralToSort, int low, int high) {
         int pivot = arrayToSort[high];
-
-        int insertionIndex = low - 1;
-
-        for (int i = low; i < high; ++i) {
-            if (arrayToSort[i] <= pivot) {
-                insertionIndex++;
-
-                int temp = arrayToSort[insertionIndex];
-                arrayToSort[insertionIndex] = arrayToSort[i];
-                arrayToSort[i] = temp;
-
-                temp = collateralToSort[insertionIndex];
-                collateralToSort[insertionIndex] = collateralToSort[i];
-                collateralToSort[i] = temp;
+        int i = low, lt = low, gt = high;
+    
+        while(i <= gt) {
+            if(arrayToSort[i] < pivot) {
+                swap(arrayToSort, collateralToSort, lt++, i++);
+            } else if(arrayToSort[i] > pivot) {
+                swap(arrayToSort, collateralToSort, i, gt--);
+            } else {
+                i++;
             }
         }
-
-        insertionIndex++;
-
-        int temp = arrayToSort[insertionIndex];
-        arrayToSort[insertionIndex] = arrayToSort[high];
-        arrayToSort[high] = temp;
-
-        temp = collateralToSort[insertionIndex];
-        collateralToSort[insertionIndex] = collateralToSort[high];
-        collateralToSort[high] = temp;
-
-        return insertionIndex;
+    
+        return new int[] {lt, gt};
+    }
+    
+    private void swap(int[] arrayToSort, int[] collateralToSort, int i, int j) {
+        int temp = arrayToSort[i];
+        arrayToSort[i] = arrayToSort[j];
+        arrayToSort[j] = temp;
+    
+        temp = collateralToSort[i];
+        collateralToSort[i] = collateralToSort[j];
+        collateralToSort[j] = temp;
     }
 
 }
