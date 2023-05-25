@@ -10,7 +10,8 @@ public class App
     {
         System.out.println( "Hello World!" );
 
-
+        App a = new App();
+        long max = a.maxScore(new int [] {2,1,14,12}, new int[] {11,7,13,6}, 3);
     }
 
     public long maxScore(int[] nums1, int[] nums2, int k) {
@@ -37,25 +38,37 @@ public class App
         Queue<Integer> topAdditiveNumbers = new PriorityQueue<>(k);
         
         // Initialize the heap with first full set of values
-        for (int i = currentInspectionIndex; i < nums1.length; ++i) {
+        for (int i = currentInspectionIndex + 1; i < nums1.length; i++) {
             topAdditiveNumbers.offer(nums1[i]);
         }
 
+        long sum = 0;
+        int previousSmallestNumber = -1;
+
         while (currentInspectionIndex >= 0) {
-            int currentMultiplier = nums2[currentInspectionIndex];
-
-            topAdditiveNumbers.offer(nums1[currentInspectionIndex]);
-            topAdditiveNumbers.poll();
-
-            long sum = 0;
-
-            for (int entry : topAdditiveNumbers)
-                sum += entry;
-
-            long product = sum * currentMultiplier;
             
-            if (product > maxScore)
-                maxScore = product;
+            if ((topAdditiveNumbers.peek() == null ? 0 : topAdditiveNumbers.peek()) <= nums1[currentInspectionIndex] || topAdditiveNumbers.size() < k) {
+
+                int currentMultiplier = nums2[currentInspectionIndex];
+
+                topAdditiveNumbers.offer(nums1[currentInspectionIndex]);
+                if (topAdditiveNumbers.size() > k)
+                    previousSmallestNumber = topAdditiveNumbers.poll();
+                
+                //sum = 0;
+                if (sum == 0) {
+                    for (int entry : topAdditiveNumbers)
+                        sum += entry;
+                }   
+                else {
+                    sum -= previousSmallestNumber;
+                    sum += nums1[currentInspectionIndex];
+                }
+    
+                long product = sum * currentMultiplier;
+                if (product > maxScore)
+                    maxScore = product;
+            }
 
             currentInspectionIndex--;
         }
