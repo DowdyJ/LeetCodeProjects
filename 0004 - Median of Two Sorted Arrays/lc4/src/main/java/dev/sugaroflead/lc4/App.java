@@ -13,20 +13,21 @@ public class App
         int nums1Index = 0;
         int nums2Index = 0;
 
-        boolean nums1Finished = false;
-        boolean nums2Finished = false;
+        boolean nums1Finished = nums1.length == 0;
+        boolean nums2Finished = nums2.length == 0;
 
         for (int i = 0; i < combinedArray.length; ++i) {
-            if (!nums1Finished && nums1Index > nums1.length - 1)
-                nums1Finished = true;
-
-            if (!nums2Finished && nums2Index > nums2.length - 1)
-                nums2Finished = true;
 
             if (nums2Finished || (!nums1Finished && nums1[nums1Index] < nums2[nums2Index])) {
                 combinedArray[i] = nums1[nums1Index++];
+
+                if (!nums1Finished && nums1Index > nums1.length - 1)
+                    nums1Finished = true;
             } else {
                 combinedArray[i] = nums2[nums2Index++];
+
+                if (!nums2Finished && nums2Index > nums2.length - 1)
+                    nums2Finished = true;
             }
         }
 
