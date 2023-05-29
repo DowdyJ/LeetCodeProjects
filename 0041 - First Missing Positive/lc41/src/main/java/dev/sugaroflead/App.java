@@ -17,7 +17,6 @@ public class App
         for (int i = 0; i < input.length; ++i) {
             a.shredArray(input, input[i]);
         }
-            
         
         for (int num : input) {
             System.out.println(num);

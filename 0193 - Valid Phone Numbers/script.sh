@@ -1,0 +1,1 @@
+while read -r line; do if [[ $line =~ ^[(]{1}[0-9]{3}[)]{1}[[:space:]]{1}[0-9]{3}[-]{1}[0-9]{4}$ ]]; then echo $line; elif [[ $line =~ ^[0-9]{3}[-]{1}[0-9]{3}[-]{1}[0-9]{4}$ ]]; then echo $line; fi done < "file.txt"
