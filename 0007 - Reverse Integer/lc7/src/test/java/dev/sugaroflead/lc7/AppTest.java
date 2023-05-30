@@ -54,6 +54,8 @@ public class AppTest
     public void testCase6()
     {
         App a = new App();
+        //1056389759
+        //1534236469
         int res = a.reverse(1534236469);
         assertEquals(0, res);
     }
