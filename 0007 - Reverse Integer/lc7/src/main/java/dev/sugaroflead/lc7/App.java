@@ -15,31 +15,31 @@ public class App
     public int reverse(int x) {
         try {
             int sign = x > 0 ? 1 : -1;
-            int result = 0;
-
             x = Math.multiplyExact(x, sign);
 
-            int divisor = 1000000000;
+            int placeValue = 1000000000;
             int[] numberAsDigits = new int[10];
             while (x >= 1) {
-                int res = x / divisor;
-                numberAsDigits[9 - (int)Math.log10(divisor)] = res;
-                x -= res * divisor;
-                divisor /= 10;
+                int res = x / placeValue;
+                numberAsDigits[9 - (int)Math.log10(placeValue)] = res;
+                x -= res * placeValue;
+                placeValue /= 10;
             }
 
-            int placeValue = 1;
+            placeValue = 1;
+            x = 0;
+            
             boolean nonLeadingZeroFound = false;
             for (int i = 0; i < numberAsDigits.length; ++i) {
                 if (!nonLeadingZeroFound && numberAsDigits[i] == 0)
                     continue;
 
                 nonLeadingZeroFound = true;
-                result = Math.addExact(result, Math.multiplyExact(numberAsDigits[i], placeValue));
+                x = Math.addExact(x, Math.multiplyExact(numberAsDigits[i], placeValue));
                 placeValue *= 10;
             }
 
-            return result * sign;
+            return x * sign;
         }
         catch (ArithmeticException e) {
             return 0;
