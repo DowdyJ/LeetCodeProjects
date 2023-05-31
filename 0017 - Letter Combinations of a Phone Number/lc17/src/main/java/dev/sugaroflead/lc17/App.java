@@ -34,6 +34,8 @@ public class App
 
         List<String> returnList = new ArrayList<>();
 
+        if (digits.length() == 0)
+            return returnList;
 
         if (numberData.size() == 0) {
             inializeNumberData();
@@ -78,12 +80,12 @@ public class App
     }
 
     private String concatNumberNodeValues(NumberNode[] nums) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (NumberNode num : nums) {
-            result += num.val;
+            result.append(num.val);
         }
 
-        return result;
+        return result.toString();
     }
 
     private void inializeNumberData() {
