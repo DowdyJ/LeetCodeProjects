@@ -45,12 +45,12 @@ public class UndergroundSystem {
 
         List<Pair<String, Integer>> existingData = stationsAndTimes.get(stationName);
         
-        if (existingData == null)
+        if (existingData == null) {
             existingData = new ArrayList<>();
+            stationsAndTimes.put(stationName, existingData);
+        }
 
         existingData.add(new Pair<String, Integer>(data.getKey(), t - data.getValue()));
-
-        stationsAndTimes.put(stationName, existingData);
     }
     
     public double getAverageTime(String startStation, String endStation) {
