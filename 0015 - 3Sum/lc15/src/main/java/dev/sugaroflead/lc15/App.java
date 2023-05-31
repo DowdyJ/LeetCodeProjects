@@ -36,6 +36,7 @@ public class App
         Set<Integer> posNumSet = new HashSet<Integer>();
 
         Set<List<Integer>> answerSet = new HashSet<>();
+        
         for (int i : nums) {
             if (numSet.contains(i))
                 continue;
@@ -43,15 +44,20 @@ public class App
             if (i < 0) {
                 negNumSet.add(i);
             }
-            else {
+            else if (i > 0) {
                 posNumSet.add(i);
             }
 
             numSet.add(i);
         }
 
-        addTripleZeroIfExist(nums, answerSet);
-        addZeroInclusiveLists(numSet, posNumSet, negNumSet, answerSet);
+
+        if (numSet.contains(0)) {
+            addTripleZeroIfExist(nums, answerSet);
+            addZeroInclusiveLists(numSet, posNumSet, negNumSet, answerSet);
+            numSet.remove(0);
+        }
+                
         addTripletLists(nums, posNumSet, negNumSet, answerSet);
 
         return new ArrayList<>(answerSet);
@@ -76,10 +82,6 @@ public class App
     }
 
     private void addZeroInclusiveLists(Set<Integer> numSet, Set<Integer> posNumSet, Set<Integer> negNumSet, Set<List<Integer>> answerSet) {
-        if (!numSet.contains(0))
-            return;
-        
-        numSet.remove(0);
 
         for (Integer num : posNumSet) {
 
