@@ -7,6 +7,13 @@ import java.util.Map;
 
 public class App 
 {
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+        App a = new App();
+        for (String s : a.letterCombinations("5428274427"))
+            System.out.println(s);
+    }
 
     class NumberNode {
         public NumberNode(char val, NumberNode next) {
@@ -22,13 +29,6 @@ public class App
 
     static Map<Character, NumberNode> numberData = new HashMap<>();
 
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-        App a = new App();
-        for (String s : a.letterCombinations("25883"))
-            System.out.println(s);
-    }
 
     public List<String> letterCombinations(String digits) {
 
