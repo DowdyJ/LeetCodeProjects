@@ -30,7 +30,6 @@ public class App
         Queue<int[]> neighborNodes = new ArrayDeque<int[]>((int)(1.5 * gridLength)) {};
         neighborNodes.offer(new int[] {0, 0});
 
-        boolean[][] seenNodes = new boolean[gridLength][gridLength];
         int[] coords;
         int oldSize;
 
@@ -44,7 +43,17 @@ public class App
                 if (coords[0] == gridLength - 1 && coords[1] == grid[0].length - 1)
                     return ++result;
 
-                addValidNeighbors(grid, coords[0], coords[1], seenNodes, neighborNodes);
+                int newX;
+                int newY;
+        
+                for (int[] dir : dirs) {
+                    newX = coords[0] + dir[0];
+                    newY = coords[1] + dir[1];
+                    if (!(newX < 0 || newY < 0 || newY >= gridLength || newX >= gridLength) && grid[newX][newY] != 1) {
+                        neighborNodes.offer(new int[] {newX, newY});
+                        grid[newX][newY] = 1;
+                    }
+                }
             }
 
             result++;
@@ -57,18 +66,4 @@ public class App
     
     static final int[][] dirs = new int[][] {{1,0}, {1,1}, {0,1}, {-1,1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 
-    private void addValidNeighbors(int[][] grid, int x, int y, boolean[][] seenNodes, Queue<int[]> neighbors)  {
-
-        int newX;
-        int newY;
-
-        for (int[] dir : dirs) {
-            newX = x + dir[0];
-            newY = y + dir[1];
-            if (!(newX < 0 || newY < 0 || newY >= gridLength || newX >= gridLength) && grid[newX][newY] != 1 && !seenNodes[newX][newY]) {
-                neighbors.offer(new int[] {newX, newY});
-                seenNodes[newX][newY] = true;
-            }
-        }
-    }
 }
