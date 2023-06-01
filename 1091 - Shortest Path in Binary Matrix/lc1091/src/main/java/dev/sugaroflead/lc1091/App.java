@@ -28,13 +28,14 @@ public class App
         neighborNodes.offer(new Integer[] {0, 0});
 
         boolean[][] seenNodes = new boolean[grid.length][grid.length];
-
+        Integer[] coords;
+        int oldSize;
         while(!neighborNodes.isEmpty()) {
-
-            int oldSize = neighborNodes.size();
-
+            
+            oldSize = neighborNodes.size();
+            
             for (int i = 0; i < oldSize; ++i) {
-                Integer[] coords = neighborNodes.poll();
+                coords = neighborNodes.poll();
                 
                 if (coords[0] == grid.length - 1 && coords[1] == grid[0].length - 1)
                     return ++result;
@@ -48,8 +49,10 @@ public class App
         return -1;
     }
 
+    static final int[][] dirs = new int[][] {{1,0}, {1,1}, {0,1}, {-1,1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
+
+
     private void addValidNeighbors(int[][] grid, int x, int y, boolean[][] seenNodes, Queue<Integer[]> neighbors)  {
-        int[][] dirs = new int[][] {{1,0}, {1,1}, {0,1}, {-1,1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 
         for (int[] dir : dirs) {
             int newX = x + dir[0];
