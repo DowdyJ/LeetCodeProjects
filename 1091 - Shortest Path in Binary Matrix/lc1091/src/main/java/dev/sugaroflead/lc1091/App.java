@@ -39,8 +39,6 @@ public class App
                 if (coords[0] == grid.length - 1 && coords[1] == grid[0].length - 1)
                     return ++result;
 
-                seenNodes[coords[0]][coords[1]] = true;
-
                 addValidNeighbors(grid, coords[0], coords[1], seenNodes, neighborNodes);
             }
 
@@ -58,6 +56,7 @@ public class App
             int newY = y + dir[1];
             if (areIndecesInBounds(grid, newX, newY) && grid[newX][newY] != 1 && !seenNodes[newX][newY]) {
                 neighbors.offer(new Integer[] {newX, newY});
+                seenNodes[newX][newY] = true;
             }
         }
     }
