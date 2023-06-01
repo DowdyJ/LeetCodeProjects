@@ -1,5 +1,6 @@
 package dev.sugaroflead.lc1091;
 
+import java.util.ArrayDeque;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -19,17 +20,20 @@ public class App
     }
 
     public int shortestPathBinaryMatrix(int[][] grid) {
-        if (grid.length == 0 || grid[0][0] == 1 || grid[grid.length - 1][grid.length - 1] == 1)
+        gridLength = grid.length;
+
+        if (gridLength == 0 || grid[0][0] == 1 || grid[gridLength - 1][gridLength - 1] == 1)
             return -1;
 
         int result = 0;
+        // Initialized to inital size of just above best case scenario diagonal path
+        Queue<int[]> neighborNodes = new ArrayDeque<int[]>((int)(1.5 * gridLength)) {};
+        neighborNodes.offer(new int[] {0, 0});
 
-        Queue<Integer[]> neighborNodes = new LinkedList<Integer[]>() {};
-        neighborNodes.offer(new Integer[] {0, 0});
-
-        boolean[][] seenNodes = new boolean[grid.length][grid.length];
-        Integer[] coords;
+        boolean[][] seenNodes = new boolean[gridLength][gridLength];
+        int[] coords;
         int oldSize;
+
         while(!neighborNodes.isEmpty()) {
             
             oldSize = neighborNodes.size();
@@ -37,7 +41,7 @@ public class App
             for (int i = 0; i < oldSize; ++i) {
                 coords = neighborNodes.poll();
                 
-                if (coords[0] == grid.length - 1 && coords[1] == grid[0].length - 1)
+                if (coords[0] == gridLength - 1 && coords[1] == grid[0].length - 1)
                     return ++result;
 
                 addValidNeighbors(grid, coords[0], coords[1], seenNodes, neighborNodes);
@@ -49,22 +53,22 @@ public class App
         return -1;
     }
 
+    int gridLength = 0;
+    
     static final int[][] dirs = new int[][] {{1,0}, {1,1}, {0,1}, {-1,1}, {-1, 0}, {-1, -1}, {0, -1}, {1, -1}};
 
+    private void addValidNeighbors(int[][] grid, int x, int y, boolean[][] seenNodes, Queue<int[]> neighbors)  {
 
-    private void addValidNeighbors(int[][] grid, int x, int y, boolean[][] seenNodes, Queue<Integer[]> neighbors)  {
+        int newX;
+        int newY;
 
         for (int[] dir : dirs) {
-            int newX = x + dir[0];
-            int newY = y + dir[1];
-            if (areIndecesInBounds(grid, newX, newY) && grid[newX][newY] != 1 && !seenNodes[newX][newY]) {
-                neighbors.offer(new Integer[] {newX, newY});
+            newX = x + dir[0];
+            newY = y + dir[1];
+            if (!(newX < 0 || newY < 0 || newY >= gridLength || newX >= gridLength) && grid[newX][newY] != 1 && !seenNodes[newX][newY]) {
+                neighbors.offer(new int[] {newX, newY});
                 seenNodes[newX][newY] = true;
             }
         }
-    }
-
-    private boolean areIndecesInBounds(int[][] grid, int x, int y) {
-        return !(x < 0 || y < 0 || y >= grid.length || x >= grid.length);
     }
 }
