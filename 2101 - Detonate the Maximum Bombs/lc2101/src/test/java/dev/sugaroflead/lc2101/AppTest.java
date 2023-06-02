@@ -33,4 +33,11 @@ public class AppTest
         int ans = a.maximumDetonation(new int[][] {{1,2,3},{2,3,1},{3,4,2},{4,5,3},{5,6,4}});
         assertEquals(5, ans);
     }
+
+    @Test
+    public void testCase4() {
+        App a = new App();
+        int ans = a.maximumDetonation(new int[][] {{656,619,56},{189,402,178},{513,373,276},{900,510,14},{188,173,129},{512,178,251},{145,685,47},{504,355,500},{554,131,214},{596,1,98},{358,230,197},{88,758,155},{72,340,419},{818,708,222}});
+        assertEquals(14, ans);
+    }
 }

@@ -8,10 +8,22 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.swing.Painter;
-
 public class App 
 {
+
+    public static void main( String[] args )
+    {
+        System.out.println( "Hello World!" );
+
+        App a = new App();
+
+        int ans1 = a.maximumDetonation(new int[][] {{2,1,3},{6,1,4}});
+
+        int ans = a.maximumDetonation(new int[][] {{1,1,100000},{100000,100000,1}});
+        System.out.println("Answer: " + ans);
+        //assertEquals(5, ans);
+    }
+
     public class Pair <K,V> {
         public Pair(K x, V y) {
             this.key = x;
@@ -20,6 +32,14 @@ public class App
 
         K key;
         V value;
+
+        public void setKey(K key) {
+            this.key = key;
+        }
+
+        public void setValue(V value) {
+            this.value = value;
+        }
 
         public K getKey() {
             return key;
@@ -46,15 +66,6 @@ public class App
     }
 
 
-    public static void main( String[] args )
-    {
-        System.out.println( "Hello World!" );
-
-        App a = new App();
-        int ans = a.maximumDetonation(new int[][] {{1,2,3},{2,3,1},{3,4,2},{4,5,3},{5,6,4}});
-        //assertEquals(5, ans);
-    }
-
     public int maximumDetonation(int[][] bombs) {
         if (bombs.length == 1)
             return 1;
@@ -66,11 +77,19 @@ public class App
             bombMap.put(new Pair<Integer, Integer>(bomb[0], bomb[1]), new ArrayList<Integer>());
         }
 
+        Pair<Integer, Integer> currentCell = new Pair<Integer,Integer>(null, null);
         for (int bombIndex = 0; bombIndex < bombs.length; ++bombIndex) {
-            for (int[] blownCell : getExplosionCells(bombs[bombIndex])) {
-                Pair<Integer, Integer> currentCell = new Pair<Integer,Integer>(blownCell[0], blownCell[1]);
-                if (bombMap.containsKey(currentCell))
+            int[] bomb = bombs[bombIndex];
+            for (int otherBombIndex = 0; otherBombIndex < bombs.length; ++otherBombIndex) {
+                if (otherBombIndex == bombIndex)
+                    continue;
+
+                int[] otherBomb = bombs[otherBombIndex];
+                if (Math.pow((otherBomb[0] - bomb[0]), 2) + Math.pow((otherBomb[1]-bomb[1]),2) <= Math.pow(bomb[2], 2)) {
+                    currentCell.setKey(otherBomb[0]);
+                    currentCell.setValue(otherBomb[1]);
                     bombMap.get(currentCell).add(bombIndex);
+                }
             }
         }
 
@@ -108,26 +127,7 @@ public class App
     }
 
 
-    public ArrayList<int[]> getExplosionCells(int[] bomb) {
-        int radius = bomb[2];
-
-        if (radius <= 0)
-            return new ArrayList<int[]>();
-
-        ArrayList<int[]> results = new ArrayList<>();
-
-        for (int y = bomb[1] - radius; y < bomb[1] + radius; y++) {
-            for (int x = bomb[0] - radius; x < bomb[0] + radius; x++) {
-                if (x < 0 || y < 0)
-                    continue;
-
-                if (Math.sqrt(Math.pow((x - bomb[0]),2) + Math.pow((y - bomb[1]), 2)) <= radius) {
-                    results.add(new int[] {x, y});
-                }
-            }    
-        }
-
-
-        return results;
+    public Integer TLEGuard() {
+        return 0;
     }
 }
