@@ -17,10 +17,12 @@ public class App
 
         App a = new App();
 
-        int ans1 = a.maximumDetonation(new int[][] {{2,1,3},{6,1,4}});
+        int ans = a.maximumDetonation(new int[][] {{37207,2653,5261},{40784,59523,20635},{16390,1426,39102},{42236,12,96855},{72839,62027,61667},{60691,58191,48447},{42932,46579,41248},{35868,43119,6870},{41693,98905,17374},{43441,1266,41621}});
 
-        int ans = a.maximumDetonation(new int[][] {{1,1,100000},{100000,100000,1}});
-        System.out.println("Answer: " + ans);
+        a.maximumDetonation(new int[][] {
+            {1,1,100000},
+            {100000,100000,1}});
+            //        System.out.println("Answer: " + ans);
         //assertEquals(5, ans);
     }
 
@@ -85,10 +87,12 @@ public class App
                     continue;
 
                 int[] otherBomb = bombs[otherBombIndex];
-                if (Math.pow((otherBomb[0] - bomb[0]), 2) + Math.pow((otherBomb[1]-bomb[1]),2) <= Math.pow(bomb[2], 2)) {
-                    currentCell.setKey(otherBomb[0]);
-                    currentCell.setValue(otherBomb[1]);
-                    bombMap.get(currentCell).add(bombIndex);
+                long leftSide = (long)(otherBomb[0] - bomb[0]) * (long)(otherBomb[0] - bomb[0]) + (long)(otherBomb[1]-bomb[1]) * (long)(otherBomb[1]-bomb[1]);
+                long rightSide = (long)bomb[2] * (long)bomb[2];
+                if (leftSide <= rightSide) {
+                    currentCell.setKey(bomb[0]);
+                    currentCell.setValue(bomb[1]);
+                    bombMap.get(currentCell).add(otherBombIndex);
                 }
             }
         }
