@@ -3,11 +3,11 @@
 #include <stdlib.h>
 
 
-bool isNumberASCII(char c) {
+extern inline bool isNumberASCII(char c) {
     return !(c < (char)48 || c > (char)57);
 }
 
-void trimSpaces(char* token) {
+void trimSpaces(char* restrict token) {
     int slow = 0;
     int fast = 0;
 
@@ -25,10 +25,10 @@ void trimSpaces(char* token) {
 }
 
 // assumes no spaces
-bool tokenIsInteger(char* token, bool allowSign) {
+bool tokenIsInteger(char* restrict token) {
     
     unsigned char i = 0;
-    if (allowSign && (token[i] == '+' || token[i] == '-')) {
+    if (token[i] == '+' || token[i] == '-') {
         if (token[i+1] == 0)
             return false;
         
@@ -46,7 +46,7 @@ bool tokenIsInteger(char* token, bool allowSign) {
 
 
 // assumes no spaces
-bool tokenIsDecimal(char* token) {
+bool tokenIsDecimal(char* restrict token) {
 
     for (int i = 0; token[i] != 0; ++i) {
         if (token[i] == '.') {
@@ -58,7 +58,7 @@ bool tokenIsDecimal(char* token) {
         }
     }
 
-    return tokenIsInteger(token, true);    
+    return tokenIsInteger(token);    
 }
 
 //chews up input ᕦ༼✩ل͜✩༽ᕤ
@@ -75,7 +75,7 @@ bool isNumber(char * s){
                 return false;
             }
 
-            bool afterEIsInteger = tokenIsInteger(&s[i+1], true);
+            bool afterEIsInteger = tokenIsInteger(&s[i+1]);
             s[i] = 0;
             bool beforeEIsDecimal = tokenIsDecimal(s);
 
@@ -88,6 +88,7 @@ bool isNumber(char * s){
 
 
 int main () {
+
 
     char test2[] = "4e+";
     bool ans2 = isNumber(test2);
