@@ -4,7 +4,7 @@
 
 
 
-void getNegativeIndex(int* column, int left, int right, int* result) {
+void getNegativeIndex(int* column, char left, char right, int* result) {
     if (*result != -1)
         return;
 
@@ -16,27 +16,30 @@ void getNegativeIndex(int* column, int left, int right, int* result) {
         return;
     }
 
-    getNegativeIndex(
-        column, 
-        left, 
-        (right - left) % 2 == 0 ? left + (right - left) / 2 : left + (right - left) / 2 + 1, 
-        result);
-
-    getNegativeIndex(
-        column, 
-        left + (right - left) / 2, 
-        right, 
-        result);
+    if (column[left] >= 0 && column[(right - left) % 2 == 0 ? left + (right - left) / 2 : left + (right - left) / 2 + 1] < 0)
+        getNegativeIndex(
+            column, 
+            left, 
+            (right - left) % 2 == 0 ? left + (right - left) / 2 : left + (right - left) / 2 + 1, 
+            result);
+    else if(column[left + (right - left) / 2] >= 0 && column[right] < 0)
+        getNegativeIndex(
+            column, 
+            left + (right - left) / 2, 
+            right, 
+            result);
 }
 
-int countNegatives(int** grid, int gridSize, int* gridColSize){
+int countNegativesLarge(int** grid, int gridSize, int* gridColSize){
 
     int result = 0;
     int localIndex;
     for (int i = 0; i < gridSize; ++i) {
         localIndex = -1;
-        if (grid[i][0] < 0)
-            localIndex = 0;
+        if (grid[i][0] < 0) {
+            result += (gridSize - i) * *gridColSize;
+            break;
+        }
         else if (grid[i][*gridColSize - 1] > 0)
             continue;
         else
@@ -48,6 +51,31 @@ int countNegatives(int** grid, int gridSize, int* gridColSize){
 
     return result;
 
+}
+
+int countNegativesSmall(int** grid, int gridSize, int* gridColSize) {
+    int result = 0;
+    for (int i = 0; i < gridSize; ++i) {
+        if (grid[i][0] < 0) {
+            result += (gridSize - i) * *gridColSize;
+            break;
+        }
+        for (int j = 0; j < *gridColSize; ++j) {
+            result += grid[i][j] < 0;
+        }
+    }
+
+    return result;
+}
+
+int countNegatives(int** grid, int gridSize, int* gridColSize){
+
+    if (*gridColSize > 20) {
+        return countNegativesLarge(grid, gridSize, gridColSize);
+    }
+    else {
+        return countNegativesSmall(grid, gridSize, gridColSize);
+    }
 }
 
 int main() {
