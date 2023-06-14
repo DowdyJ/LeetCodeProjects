@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <stdlib.h>
 
 void swap(char* string, int i, int j) {
     char temp = string[i];
@@ -68,6 +69,32 @@ bool isAnagram(char * s, char * t){
 
     return true;
 }
+
+
+bool isAnagram2(char * s, char * t){
+
+    short* charCount = calloc(26, sizeof(short));
+
+    unsigned short i = 0;
+
+    for (; s[i] != 0 && t[i] != 0; ++i) {
+        charCount[s[i] - 97]++;
+        charCount[t[i] - 97]--;
+    }
+
+    if (s[i] != t[i])
+        return false;
+
+    i = 0;
+    for (; i < 26; ++i)
+        if (charCount[i] != 0)
+            return false;
+
+    return true;
+}
+
+
+
 
 int main() {
     
