@@ -6,6 +6,8 @@ public class SnapshotArray {
     List<Dictionary<int, int>> snaps = new();
 
     Dictionary<int, int> lastChangedIndex = new();
+    HashSet<int> changedSinceLastSnap = new();
+
     bool anyChangeSinceLastSnap = false;
     int[] lastArr;
     int[] curArr;
@@ -23,6 +25,8 @@ public class SnapshotArray {
             lastChangedIndex[index] = snaps.Count;
         else
             lastChangedIndex.Add(index, snaps.Count);
+
+        changedSinceLastSnap.Add(index);
     }
     
     public int Snap() {
@@ -30,14 +34,16 @@ public class SnapshotArray {
         Dictionary<int, int> diffs = new();
 
         if (anyChangeSinceLastSnap) {
-            foreach (var kv in lastChangedIndex) {
-                if (curArr[kv.Key] != lastArr[kv.Key]) {
-                    diffs.Add(kv.Key, curArr[kv.Key]);
+            foreach (var i in changedSinceLastSnap) {
+                if (curArr[i] != lastArr[i]) {
+                    diffs.Add(i, curArr[i]);
                 }
             }
 
             lastArr = (int[])curArr.Clone();
         }
+
+        changedSinceLastSnap.Clear();
 
         anyChangeSinceLastSnap = false;
         snaps.Add(diffs);

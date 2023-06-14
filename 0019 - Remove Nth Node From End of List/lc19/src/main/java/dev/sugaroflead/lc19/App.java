@@ -22,7 +22,7 @@ public class App
         ListNode curNode = head;
 
         Deque<ListNode> lastNNodes = new ArrayDeque<ListNode>();
-        int nodeCount = 0;
+        char nodeCount = 0;
 
         while (curNode != null) {
             lastNNodes.offer(curNode);

@@ -7,7 +7,7 @@ struct TreeNode {
     struct TreeNode *right;
 };
 
-bool isMatchingDFS(struct TreeNode* restrict left, struct TreeNode* restrict right) {
+extern inline bool isMatchingDFS(struct TreeNode* restrict left, struct TreeNode* restrict right) {
     
     if (left == NULL && right == NULL) {
         return true;

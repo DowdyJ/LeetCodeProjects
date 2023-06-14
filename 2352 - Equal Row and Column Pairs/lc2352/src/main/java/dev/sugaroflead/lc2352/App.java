@@ -34,8 +34,8 @@ public class App
     private void makeColumnMap(int[][] grid) {
         StringBuilder key = new StringBuilder();
 
-        for (int i = 0; i < grid.length; ++i) {
-            for (int j = 0; j < grid[0].length; ++j) {
+        for (char i = 0; i < grid.length; ++i) {
+            for (char j = 0; j < grid[0].length; ++j) {
                 key.append(grid[i][j]);
                 key.append('-');
             }
@@ -54,8 +54,8 @@ public class App
     private void makeRowMap(int[][] grid) {
         StringBuilder key = new StringBuilder();
 
-        for (int i = 0; i < grid.length; ++i) {
-            for (int j = 0; j < grid[0].length; ++j) {
+        for (char i = 0; i < grid.length; ++i) {
+            for (char j = 0; j < grid[0].length; ++j) {
                 key.append(grid[j][i]);
                 key.append('-');
             }

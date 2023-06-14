@@ -23,6 +23,11 @@ public class Solution {
         if (nums.Length == 0)
             return result;
 
+        if (nums.Length == 1) {
+            result.Add($"{nums[0]}");
+            return result;
+        }
+
         int? firstNum = null;
         int? lastNum = null;
 
@@ -34,7 +39,7 @@ public class Solution {
 
             if (nums[numIndex] != expectedVal) {
 
-                if (lastNum is null || firstNum >= lastNum) {
+                if (firstNum >= lastNum || lastNum is null) {
                     result.Add($"{firstNum}");
                 }
                 else {
