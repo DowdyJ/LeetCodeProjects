@@ -39,7 +39,7 @@ public class App
         minimumDifference.set(Math.min(Math.min(diff1, diff2), minimumDifference.get()));
 
         DFS(curNode.left, minimumDifference, lower, curNode.val);
-        DFS(curNode.left, minimumDifference, curNode.val, upper);
+        DFS(curNode.right, minimumDifference, curNode.val, upper);
     }
 
 }
