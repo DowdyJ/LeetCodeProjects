@@ -10,18 +10,12 @@ using std::endl;
 class Solution {
 public:
     int singleNumber(vector<int>& nums) {
-        unordered_set<int> seenNumbers;
+        int result = 0;
 
-        for (const int& num : nums) {
-            if (seenNumbers.find(num) != seenNumbers.end()) {
-                seenNumbers.erase(num);
-            }
-            else {
-                seenNumbers.emplace(num);
-            }
-        }
+        for (const int& num : nums)
+            result ^= num;
 
-        return *(seenNumbers.begin());
+        return result;
     }
 };
 
@@ -29,6 +23,6 @@ int main() {
     vector<int> nums = {1};
     Solution s;
     cout << s.singleNumber(nums) << endl;
-    
+
     return 0;
 }
