@@ -55,14 +55,16 @@ int countNegativesLarge(int** grid, int gridSize, int* gridColSize){
 
 int countNegativesSmall(int** grid, int gridSize, int* gridColSize) {
     int result = 0;
+    int j;
     for (int i = 0; i < gridSize; ++i) {
         if (grid[i][0] < 0) {
             result += (gridSize - i) * *gridColSize;
             break;
         }
-        for (int j = 0; j < *gridColSize; ++j) {
+        for (j = 0; j < *gridColSize; ++j) {
             result += grid[i][j] < 0;
         }
+        j=0;
     }
 
     return result;
