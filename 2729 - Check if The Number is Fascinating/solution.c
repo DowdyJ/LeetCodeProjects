@@ -3,33 +3,31 @@
 #include <stdio.h>
 
 bool isFascinating(int n){
+    return n == 192 || n == 219 || n == 273 || n == 327;
+}
+
+bool isFascinatingCalculator(int n) {
+
     if (n > 333 || n % 5 == 0)
         return false;
 
     unsigned short bitField = 0b1111111000000000;
-    short current = (short)n;
+    unsigned short current = n;
     char i = 1;
-    char first, second, third;
     while (i < 4) {
 
-        first = current % 10;
-        second = (current / 10) % 10;
-        third = current / 100;
+        bitField |= 1 << (((current % 10u) - 1u) % 32);
+        bitField |= 1 << ((((current / 10u) % 10u) - 1u) % 32);
+        bitField |= 1 << (((current / 100u) - 1u) % 32);
 
-        if (!first || !second || !third)
-            return false;
-
-        bitField |= 1 << --first;
-        bitField |= 1 << --second;
-        bitField |= 1 << --third;
-
-        ++i;
-        current = n * i;
+        current = n * ++i;
     }
 
     return bitField == 0xFFFF;
 }
 
 int main() {
-    printf("%d\n", isFascinating(192));
+    for (int i = 100; i < 334; ++i)
+        if (isFascinating(i))
+            printf("%d\n", i);
 }
