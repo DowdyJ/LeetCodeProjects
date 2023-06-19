@@ -56,6 +56,8 @@ nunit-*.xml
 [Rr]eleasePS/
 dlldata.c
 
+**/solution
+**/target/*
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
 
