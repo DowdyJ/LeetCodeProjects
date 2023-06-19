@@ -19,8 +19,8 @@ public class App
     }
 
     public int thirdMax(int[] nums) {
-        List<Integer> ints = Arrays.stream( nums ).boxed().collect( Collectors.toList());
-        Collections.sort(ints, new Comparator<Integer>() {
+
+        Queue<Integer> maxScores = new PriorityQueue<>(new Comparator<Integer>() {
             public int compare(Integer i1, Integer i2) {
                 if (i1 == i2)
                     return 0;
@@ -30,9 +30,7 @@ public class App
                 return 1;
             }
         });
-
-        Queue<Integer> maxScores = new LinkedList<Integer>();
-        maxScores.addAll(ints);
+        maxScores.addAll(Arrays.stream( nums ).boxed().collect( Collectors.toList()));
 
         int maxVal = maxScores.peek();
 
