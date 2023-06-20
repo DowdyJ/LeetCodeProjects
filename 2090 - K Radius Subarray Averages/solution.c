@@ -1,6 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-
+#include <string.h>
 
 int* getAverages(int* nums, int numsSize, int k, int* returnSize){
     *returnSize = numsSize;
@@ -8,16 +8,17 @@ int* getAverages(int* nums, int numsSize, int k, int* returnSize){
         return nums;
 
     int* result = malloc(sizeof(int) * numsSize);
-    *returnSize = numsSize;
+
+    if (numsSize <= 2*k) {
+        memset(result, -1, sizeof(int) * numsSize);
+        return result;
+    }
 
     int i;
     for (i = 0; i < k && i < ((numsSize / 2) + 1); ++i) {
         result[i] = -1;
         result[numsSize - i - 1] = -1;
     }
-
-    if (numsSize <= 2*k)
-        return result;
 
     unsigned long long curSum = 0;
 
