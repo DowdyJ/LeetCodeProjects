@@ -16,14 +16,8 @@ int getBlocksFromSideTriangle(int sideTriangleHeight) {
     return res;
 }
 
-int blocksUsedByTrimmedTriangle(int n, int index, int maxSum, int triangleHeight, int triangleArea) {
-    int scrappedLeft = 0;
-    int scrappedRight = 0;
-
-    scrappedLeft = getBlocksFromSideTriangle(triangleHeight - index - 1);
-    scrappedRight = getBlocksFromSideTriangle(triangleHeight - (n - index));
-
-    return triangleArea - (scrappedLeft + scrappedRight);
+int blocksUsedByTrimmedTriangle(int n, int index, int maxSum, int triangleHeight) {   
+    return (triangleHeight * triangleHeight) - (getBlocksFromSideTriangle(triangleHeight - index - 1) + getBlocksFromSideTriangle(triangleHeight - (n - index)));
 }
 
 int heightOfTriangle(int maxSum, int n, int index) {
@@ -42,9 +36,6 @@ int heightOfTriangle(int maxSum, int n, int index) {
     return height;
 }
 
-//Array is length n
-//return value at index
-//total sum of array is maxSum
 int maxValue(int n, int index, int maxSum)  {
     int cachedMax = maxSum;
     maxSum -= n;
@@ -54,9 +45,7 @@ int maxValue(int n, int index, int maxSum)  {
 
     int triangleHeight = heightOfTriangle(maxSum, n, index);
 
-    int triBlocks = blocksUsedByTrimmedTriangle(n, index, maxSum, triangleHeight, triangleHeight * triangleHeight);
-
-    return ((cachedMax - triBlocks) / n) + triangleHeight;
+    return ((cachedMax - blocksUsedByTrimmedTriangle(n, index, maxSum, triangleHeight)) / n) + triangleHeight;
 }
 
 

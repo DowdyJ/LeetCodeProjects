@@ -47,12 +47,23 @@ int findCircleNum(int** isConnected, int isConnectedSize, int* isConnectedColSiz
         DFS(i, isConnected, set, isConnectedSize);
     }
     
+    free(set);
+
     return result;
 }
 
 
 
 int main() {
+    int args[3][3] = {{1}, {0,2}, {1}};
+    int size = 3;
 
+    int** args = malloc(sizeof(int*) * size);
+    for (int i = 0; i < size; ++i) 
+        *args[i] = malloc(sizeof(int) * size);
+    
+    
+
+    int ans = findCircleNum(args, 3, NULL);
 }
 
